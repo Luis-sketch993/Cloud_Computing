@@ -20,6 +20,18 @@ jobs:
         run: docker compose up -d --build
         working-directory: monolito
 
+      - name: Esperar a que PostgreSQL esté listo
+        run: |
+          for attempt in $(seq 1 30); do
+            if docker compose exec -T db pg_isready -U app_user -d proyecto_app; then
+              break
+            fi
+            sleep 2
+          done
+          docker compose exec -T db pg_isready -U app_user -d proyecto_app
+          docker compose exec -T db psql -U app_user -d proyecto_app -c '\dt'
+        working-directory: monolito
+
       - name: Ejecutar pruebas
         run: docker compose exec -T app npm test
         working-directory: monolito
