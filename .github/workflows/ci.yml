@@ -8,6 +8,10 @@ on:
 jobs:
   monolito:
     runs-on: ubuntu-latest
+    env:
+      DB_NAME: proyecto_app
+      DB_USER: app_user
+      DB_PASSWORD: app123
     steps:
       - name: Descargar codigo
         uses: actions/checkout@v4
