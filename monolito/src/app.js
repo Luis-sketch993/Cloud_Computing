@@ -29,7 +29,7 @@ app.get('/db-test', async (req, res) => {
 
 app.get('/usuarios', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM usuarioss');
+    const result = await pool.query('SELECT * FROM usuarios');
     res.json(result.rows);
   } catch (error) {
     console.error(error);
